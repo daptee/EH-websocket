@@ -45,6 +45,6 @@ Route::get('/event/json', function () {
 });
 
 Route::get('/websockets/serve', function () {
-    $output = Artisan::call('websockets:serve');
+    $output = Artisan::call('websockets:serve --port=443');
     return "Comando ejecutado con éxito. Salida del comando: <br>" . Artisan::output();
 });
