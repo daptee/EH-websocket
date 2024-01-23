@@ -3,6 +3,7 @@
 use App\Http\Controllers\PusherController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,16 @@ Route::get('/event/json', function () {
 });
 
 Route::get('/websockets/serve', function () {
-    $output = Artisan::call('websockets:serve --port=443');
+    $output = Artisan::call('websockets:serve');
     return "Comando ejecutado con éxito. Salida del comando: <br>" . Artisan::output();
 });
+
+// Broadcast::listen('EhTestEvent', function ($data) {
+//     // Maneja el evento Whisper recibido
+//     // info('Evento Whisper recibido en Laravel', ['data' => $data]);
+
+//     // Emite un evento de respuesta a través de WebSockets
+//     event(new \App\Events\EhTestEvent(['responseMessage' => 'Respuesta desde Laravel' , 'data' => $data]));
+
+//     // Puedes realizar otras acciones con la información del evento Whisper
+// });
