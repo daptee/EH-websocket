@@ -31,6 +31,6 @@ class Cafe implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('cafe');
+        return new Channel('Cafe');
     }
 }
