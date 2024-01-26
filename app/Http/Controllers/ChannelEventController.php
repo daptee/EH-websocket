@@ -44,4 +44,22 @@ class ChannelEventController extends Controller
             "response" => "Evento ejecutado con exito",
         ]);
     }
+
+    public function check_out(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required',
+        ]);
+
+        if (class_exists('\App\Events\CheckOut')) {
+            event(new \App\Events\CheckOut($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+
+        return response()->json([
+            "response" => "Evento ejecutado con exito",
+        ]);
+    }
 }

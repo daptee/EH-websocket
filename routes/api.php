@@ -31,6 +31,7 @@ Route::get('/response_event', function(){
 // Channel Event Controller (events)
 Route::controller(ChannelEventController::class)->prefix('events')->group(function () {
     Route::post('/check-in', 'check_in');
+    Route::post('/check-out', 'check_out');
 });
 
 Route::post('/event', [ChannelEventController::class, 'event']);
