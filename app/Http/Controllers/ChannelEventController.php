@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class RoomController extends Controller
+class ChannelEventController extends Controller
 {
     public function event(Request $request)
     {
@@ -26,5 +26,22 @@ class RoomController extends Controller
             "response" => "Evento ejecutado con exito",
         ]);
     }
-    
+
+    public function check_in(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required',
+        ]);
+
+        if (class_exists('\App\Events\CheckIn')) {
+            event(new \App\Events\CheckIn($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+
+        return response()->json([
+            "response" => "Evento ejecutado con exito",
+        ]);
+    }
 }

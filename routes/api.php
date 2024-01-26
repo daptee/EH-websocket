@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ChannelEventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +28,10 @@ Route::get('/response_event', function(){
     ]);
 });
 
-// Room
-Route::post('/event', [RoomController::class, 'event']);
+// Channel Event Controller (events)
+Route::controller(ChannelEventController::class)->prefix('events')->group(function () {
+    Route::post('/check-in', 'check_in');
+});
+
+Route::post('/event', [ChannelEventController::class, 'event']);
+
