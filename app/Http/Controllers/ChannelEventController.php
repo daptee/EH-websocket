@@ -62,4 +62,58 @@ class ChannelEventController extends Controller
             "response" => "Evento ejecutado con exito",
         ]);
     }
+
+    public function place_order(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required',
+        ]);
+
+        if (class_exists('\App\Events\PlaceOrder')) {
+            event(new \App\Events\PlaceOrder($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+
+        return response()->json([
+            "response" => "Evento ejecutado con exito",
+        ]);
+    }
+
+    public function accept_order(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required',
+        ]);
+
+        if (class_exists('\App\Events\AcceptOrder')) {
+            event(new \App\Events\AcceptOrder($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+
+        return response()->json([
+            "response" => "Evento ejecutado con exito",
+        ]);
+    }
+
+    public function reject_order(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required',
+        ]);
+
+        if (class_exists('\App\Events\RejectOrder')) {
+            event(new \App\Events\RejectOrder($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+
+        return response()->json([
+            "response" => "Evento ejecutado con exito",
+        ]);
+    }
 }

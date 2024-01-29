@@ -8,19 +8,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Cafe implements ShouldBroadcast
+class AcceptOrder implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $data;
+    public $channel, $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($channel, $data)
     {
+        $this->channel = $channel;
         $this->data = $data;
     }
 
@@ -31,6 +32,6 @@ class Cafe implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('Cafe');
+        return new Channel($this->channel);
     }
 }
