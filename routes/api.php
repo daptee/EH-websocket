@@ -35,6 +35,8 @@ Route::controller(ChannelEventController::class)->prefix('events')->group(functi
     Route::post('/place-order', 'place_order');
     Route::post('/accept-order', 'accept_order');
     Route::post('/reject-order', 'reject_order');
+    Route::post('/kitchen-order-ready', 'kitchen_order_ready'); 
+    Route::post('/barista-order-ready', 'barista_order_ready'); 
 });
 
 Route::post('/event', [ChannelEventController::class, 'event']);

@@ -116,4 +116,36 @@ class ChannelEventController extends Controller
             "response" => "Evento ejecutado con exito",
         ]);
     }
+
+    public function kitchen_order_ready(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required'
+        ]);
+
+        if (class_exists('\App\Events\KitchenOrderReady')) {
+            event(new \App\Events\KitchenOrderReady($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+        
+        return response()->json(["response" => "Evento ejecutado con exito"]);
+    }
+
+    public function barista_order_ready(Request $request)
+    {
+        $request->validate([
+            'channel' => 'required',
+            'data' => 'required'
+        ]);
+
+        if (class_exists('\App\Events\BaristaOrderReady')) {
+            event(new \App\Events\BaristaOrderReady($request->channel, $request->data));
+        } else {
+            return response()->json(["response" => "Evento no identificado"], 400);
+        }
+
+        return response()->json(["response" => "Evento ejecutado con exito"]);
+    }
 }
